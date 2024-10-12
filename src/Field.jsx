@@ -1,12 +1,42 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 
-function checkWinning(array){
-  if(array[0] == 'X' && array[1] == 'X' && array[2] == "X"){
-    return true
-  } else if(array[3] == 'X' && array[4] == 'X' && array[5] == "X"){
-    return true
+function checkWinning(array, player1, player2){
+
+  if(array[0] == player1 && array[1] == player1 && array[2] == player1){
+    return player1
+  } else if(array[3] == player1 && array[4] == player1 && array[5] == player1){
+    return player1
+  } else if(array[6] == player1 && array[7] == player1 && array[8] == player1){
+    return player1
+  } else if(array[0] == player1 && array[3] == player1 && array[6] == player1){
+    return player1
+  } else if(array[1] == player1 && array[4] == player1 && array[7] == player1){
+    return player1
+  } else if(array[2] == player1 && array[5] == player1 && array[8] == player1){
+    return player1
+  } else if(array[0] == player1 && array[4] == player1 && array[8] == player1){
+    return player1
+  } else if(array[2] == player1 && array[4] == player1 && array[6] == player1){
+    return player1
+  } else if(array[0] == player2 && array[1] == player2 && array[2] == player2){
+    return player2
+  } else if(array[3] == player2 && array[4] == player2 && array[5] == player2){
+    return player2
+  } else if(array[6] == player2 && array[7] == player2 && array[8] == player2){
+    return player2
+  } else if(array[0] == player2 && array[3] == player2 && array[6] == player2){
+    return player2
+  } else if(array[1] == player2 && array[4] == player2 && array[7] == player2){
+    return player2
+  } else if(array[2] == player2 && array[5] == player2 && array[8] == player2){
+    return player2
+  } else if(array[0] == player2 && array[4] == player2 && array[8] == player2){
+    return player2
+  } else if(array[2] == player2 && array[4] == player2 && array[6] == player2){
+    return player2
   }
+
 }
 
 function Table({value, clickAction}){
@@ -19,28 +49,29 @@ function Table({value, clickAction}){
 }
 
 function Field(){
-
+  let Player1 = 'X';
+  let Player2 = 'O';
   const [arrayField, changeField] = useState(Array(9).fill(null))
   const [checkStep, changeStep ] = useState(0)
 
   function clickAction(i){
     const nextSquares = [...arrayField]
     if(checkStep == 0){
-      nextSquares[i] = 'X';
+      nextSquares[i] = Player1;
       changeField(nextSquares);
       changeStep(1)
     } else{
-      nextSquares[i] = '0';
+      nextSquares[i] = Player2;
       changeField(nextSquares);
       changeStep(0)
     }
     
   }
 
-  let status = checkWinning(arrayField.slice())
+  let status = checkWinning(arrayField.slice(), Player1, Player2)
   let progres;
-  if(status == true){
-    progres = 'WINNER X'
+  if(status == Player1 || status == Player2){
+    progres = 'WINNER IS ' + status
   } else {
     progres = 'GAME IS PROCESSING'
   }
