@@ -1,0 +1,35 @@
+.card{
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.468);
+    padding:20px;
+    margin: 10px auto;
+    max-width: 300px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.card .title-card{
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.square{
+    background: #fff;
+    border: 1px solid #000000;
+    float: left;
+    height: 90px;
+    width: 90px;
+    margin-right: -1px;
+    margin-top: -1px;
+    font-size: 30px;
+}
+
+.row{
+    content: '';
+    display: table;
+}
+
+.field{
+    margin:10px auto;
+}
