@@ -1,9 +1,9 @@
-
+import imageTicTacToe from './img/tictactoe.png'
 function Card(){
 
-const listNumbers = [
-  '[]','[]','[]',
-]
+// const listNumbers = [
+//   '[]','[]','[]',
+// ]
 
 function getRandomInt(min,max) {
   const minCeiled = Math.ceil(min);
@@ -22,15 +22,16 @@ function Click1(){
 
 }
 
-const listShow = listNumbers.map(list => <span key={list}>{list}</span>);
+// const listShow = listNumbers.map(list => <span key={list}>{list}</span>);
 
 return(
   <>
-    <button onClick={Click1}>
-    CLICK
-    </button>
-    <h3>TIC TAC TOE FIELD:</h3>
-    <div>{listShow}<br />{listShow}<br />{listShow}<br /></div>
+    <div className="card">
+      <h2>TicTacToe</h2>
+      <p>Here you can play tic tac toe</p>
+      <img src={imageTicTacToe}></img>
+      <button onClick={Click1}>CLICK</button>
+    </div>
   </>
 );
 
