@@ -7,3 +7,8 @@
     max-width: 300px;
     background-color: #fff;
 }
+
+.card .title-card{
+    font-family: Arial, sans-serif;
+    margin: 0;
+}

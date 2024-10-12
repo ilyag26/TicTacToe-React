@@ -1,8 +1,10 @@
-import Card from "./Card"
+import Field from "./Field"
 
 function App(){
   return(
-    <Card/>
+    <>
+      <Field/>
+    </>
   )
 }
 export default App
