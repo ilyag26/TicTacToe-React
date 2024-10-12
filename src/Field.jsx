@@ -1,6 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 
+function checkWinning(array){
+  if(array[0] == 'X' && array[1] == 'X' && array[2] == "X"){
+    return true
+  } else if(array[3] == 'X' && array[4] == 'X' && array[5] == "X"){
+    return true
+  }
+}
+
 function Table({value, clickAction}){
   return (
     <button className="square" onClick={clickAction}>
@@ -12,13 +20,11 @@ function Table({value, clickAction}){
 
 function Field(){
 
-  const [state, changeState] = useState("Game is processing...")
   const [arrayField, changeField] = useState(Array(9).fill(null))
   const [checkStep, changeStep ] = useState(0)
 
   function clickAction(i){
     const nextSquares = [...arrayField]
-    
     if(checkStep == 0){
       nextSquares[i] = 'X';
       changeField(nextSquares);
@@ -28,24 +34,24 @@ function Field(){
       changeField(nextSquares);
       changeStep(0)
     }
-    checkWinning()
-
+    
   }
 
-  function checkWinning(){
-    const check = [...arrayField]
-    if(check[0] == 'X' && check[1] == 'X' && check[2] == "X"){
-        changeState("WINNER X");
-    }
+  let status = checkWinning(arrayField.slice())
+  let progres;
+  if(status == true){
+    progres = 'WINNER X'
+  } else {
+    progres = 'GAME IS PROCESSING'
   }
 
   return(
     <>
       <div className="card">
-        <h2 className="title-card">{state}</h2>
+        <h2 className="title-card">{progres}</h2>
           <div className="field">
             <div className="row">
-            <Table value={arrayField[0]} clickAction={() => clickAction(0)} />
+            <Table value={arrayField[0]} clickAction={() => clickAction(0)}/>
             <Table value={arrayField[1]} clickAction={() => clickAction(1)}/>
             <Table value={arrayField[2]} clickAction={() => clickAction(2)}/>
             </div>
@@ -63,7 +69,6 @@ function Field(){
       </div>
     </>
 );
-
 
 }
 
