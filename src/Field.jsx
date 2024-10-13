@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import checkWinning from './Logic';
+import {checkWinning,getRandomInt} from './Logic';
 
 function Table({value, clickAction}){
   return (
@@ -15,9 +15,9 @@ function Field(){
   let block = false;
   let Player1 = 'X';
   let Player2 = 'O';
+  let stepMake = false;
 
   const [arrayField, changeField] = useState(Array(9).fill(null));
-  const [checkStep, changeStep ] = useState(0);
   const reset = <button className="resetGame" onClick={resetGame}>RESET</button>
 
   let pos1 = [
@@ -34,6 +34,7 @@ function Field(){
 
   let status = checkWinning(arrayField.slice(), Player1, Player2, pos1)
   let progres; 
+  
   if(status == Player1 || status == Player2){
     progres = 'WINNER IS ' + status;
     block = true;
@@ -43,17 +44,25 @@ function Field(){
 
   function clickAction(i){
     const nextSquares = [...arrayField];
-    if(block === false){
-      if(checkStep == 0){
+    if(block === false && nextSquares[i] == null){
         nextSquares[i] = Player1;
+        computerStep(nextSquares)
         changeField(nextSquares);
-        changeStep(1)
-      } else{
-        nextSquares[i] = Player2;
-        changeField(nextSquares);
-        changeStep(0);
-      }
+        stepMake = false;
     } 
+  }
+
+  function computerStep(nextSquares){
+    while (stepMake != true){
+      let step = getRandomInt(0,7);
+      for(let i = 0; i!=nextSquares.length; i++){
+        if(nextSquares[step] != 'X' && nextSquares[step] != 'O'){
+          nextSquares[step] = Player2;
+          stepMake = true;
+        }
+      } 
+    }
+    console.log(nextSquares)
   }
 
   function resetGame(){
