@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import {checkWinning,getRandomInt} from './Logic';
 
-function Table({value, clickAction}){
+function Table({value, clickAction, id}){
   return (
-    <button className="square" onClick={clickAction}>
+    <button id={id} className="square" onClick={clickAction}>
       {value}
     </button>
   );
@@ -34,7 +34,6 @@ function Field(){
 
   let status = checkWinning(arrayField.slice(), Player1, Player2, pos1)
   let progres; 
-  console.log(rounds)
   if(status == Player1 || status == Player2){
     progres = 'WINNER IS ' + status;
     block = true;
@@ -60,11 +59,13 @@ function Field(){
       }
     } 
     let step = getRandomInt(0,array.length-1);
+    document.getElementById(array[step]).style.backgroundColor = '#ECAE4F'
     nextSquares[array[step]] = Player2;
     changeField(nextSquares);
   }
 
   function playerStep(nextSquares, i) {
+    document.getElementById(i).style.backgroundColor = '#DC695A'
     nextSquares[i] = Player1;
     changeField(nextSquares);
     changeRouds(rounds+1)
@@ -74,6 +75,9 @@ function Field(){
     block = false;
     changeField(Array(9).fill(null))
     changeRouds(1)
+    for(let i = 0; i<=8; i++){
+      document.getElementById(i).style.backgroundColor = '#78BEC6'
+    }
   }
 
   return(
@@ -82,19 +86,19 @@ function Field(){
         <h2 className="title-card">{progres}</h2>
           <div className="field">
             <div className="row">
-            <Table value={arrayField[0]} clickAction={() => clickAction(0)}/>
-            <Table value={arrayField[1]} clickAction={() => clickAction(1)}/>
-            <Table value={arrayField[2]} clickAction={() => clickAction(2)}/>
+            <Table id={0} value={arrayField[0]} clickAction={() => clickAction(0)}/>
+            <Table id={1} value={arrayField[1]} clickAction={() => clickAction(1)}/>
+            <Table id={2} value={arrayField[2]} clickAction={() => clickAction(2)}/>
             </div>
             <div className="row">
-            <Table value={arrayField[3]} clickAction={() => clickAction(3)}/>
-            <Table value={arrayField[4]} clickAction={() => clickAction(4)}/>
-            <Table value={arrayField[5]} clickAction={() => clickAction(5)}/>
+            <Table id={3} value={arrayField[3]} clickAction={() => clickAction(3)}/>
+            <Table id={4} value={arrayField[4]} clickAction={() => clickAction(4)}/>
+            <Table id={5} value={arrayField[5]} clickAction={() => clickAction(5)}/>
             </div>
             <div className="row">
-            <Table value={arrayField[6]} clickAction={() => clickAction(6)}/>
-            <Table value={arrayField[7]} clickAction={() => clickAction(7)}/>
-            <Table value={arrayField[8]} clickAction={() => clickAction(8)}/>
+            <Table id={6} value={arrayField[6]} clickAction={() => clickAction(6)}/>
+            <Table id={7}value={arrayField[7]} clickAction={() => clickAction(7)}/>
+            <Table id={8} value={arrayField[8]} clickAction={() => clickAction(8)}/>
             </div>
           </div>
           {reset}

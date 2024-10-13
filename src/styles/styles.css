@@ -15,14 +15,16 @@
 }
 
 .square{
-    background: #fff;
-    border: 1px solid #000000;
+    background: #78BEC6;
+    border: none;
     float: left;
     height: 90px;
     width: 90px;
-    margin-right: -1px;
-    margin-top: -1px;
     font-size: 30px;
+    color:#fff;
+    text-shadow: 1px 3px 4px #000;
+    border-radius: 10px;
+    margin: 3px;
 }
 
 .row{
@@ -39,5 +41,5 @@
     background-color: #119D40;
     color: #fff;
     padding: 10px;
-    border-radius: 6px;
+    border-radius: 10px;
 }
