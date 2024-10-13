@@ -12,9 +12,13 @@ function Table({value, clickAction}){
 }
 
 function Field(){
-
+  let block = false;
   let Player1 = 'X';
   let Player2 = 'O';
+
+  const [arrayField, changeField] = useState(Array(9).fill(null));
+  const [checkStep, changeStep ] = useState(0);
+  const reset = <button className="resetGame" onClick={resetGame}>RESET</button>
 
   let pos1 = [
     [0, 1, 2],
@@ -24,33 +28,37 @@ function Field(){
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
+    [6, 4, 2]
   ];
 
-  const [arrayField, changeField] = useState(Array(9).fill(null));
-  const [checkStep, changeStep ] = useState(0);
+  let status = checkWinning(arrayField.slice(), Player1, Player2, pos1)
+  let progres; 
+  if(status == Player1 || status == Player2){
+    progres = 'WINNER IS ' + status;
+    block = true;
+  } else {
+    progres = 'GAME IS PROCESSING';
+  }
 
   function clickAction(i){
     const nextSquares = [...arrayField];
-    if(checkStep == 0){
-      nextSquares[i] = Player1;
-      changeField(nextSquares);
-      changeStep(1)
-    } else{
-      nextSquares[i] = Player2;
-      changeField(nextSquares);
-      changeStep(0);
-    }
-    
+    if(block === false){
+      if(checkStep == 0){
+        nextSquares[i] = Player1;
+        changeField(nextSquares);
+        changeStep(1)
+      } else{
+        nextSquares[i] = Player2;
+        changeField(nextSquares);
+        changeStep(0);
+      }
+    } 
   }
 
-  let status = checkWinning(arrayField.slice(), Player1, Player2, pos1)
-  let progres;
-  
-  if(status == Player1 || status == Player2){
-    progres = 'WINNER IS ' + status;
-  } else {
-    progres = 'GAME IS PROCESSING';
+  function resetGame(){
+    block = false;
+    changeField(Array(9).fill(null))
   }
 
   return(
@@ -74,6 +82,7 @@ function Field(){
             <Table value={arrayField[8]} clickAction={() => clickAction(8)}/>
             </div>
           </div>
+          {reset}
       </div>
     </>
 );

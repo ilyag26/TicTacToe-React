@@ -11,7 +11,7 @@
 
 function checkWinning(array, player1, player2, pos){
 
-    for(let i = 0; i!=7; i++){
+    for(let i = 0; i!=8; i++){
       if(array[pos[i][0]] == player1 && array[pos[i][1]] == player1 && array[pos[i][2]] == player1){
         return player1;
       } else if(array[pos[i][0]] == player2 && array[pos[i][1]] == player2 && array[pos[i][2]] == player2){

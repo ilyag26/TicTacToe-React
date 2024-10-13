@@ -33,3 +33,11 @@
 .field{
     margin:10px auto;
 }
+
+.resetGame{
+    border: none;
+    background-color: #119D40;
+    color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+}
