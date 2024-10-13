@@ -15,9 +15,9 @@ function Field(){
   let block = false;
   let Player1 = 'X';
   let Player2 = 'O';
-  let stepMake = false;
-
+  
   const [arrayField, changeField] = useState(Array(9).fill(null));
+  const [rounds, changeRouds] = useState(1);
   const reset = <button className="resetGame" onClick={resetGame}>RESET</button>
 
   let pos1 = [
@@ -34,40 +34,46 @@ function Field(){
 
   let status = checkWinning(arrayField.slice(), Player1, Player2, pos1)
   let progres; 
-  
+  console.log(rounds)
   if(status == Player1 || status == Player2){
     progres = 'WINNER IS ' + status;
     block = true;
-  } else {
+  } else if(rounds == 6){
+    progres = 'DRAW';
+  }else {
     progres = 'GAME IS PROCESSING';
   }
 
   function clickAction(i){
     const nextSquares = [...arrayField];
     if(block === false && nextSquares[i] == null){
-        nextSquares[i] = Player1;
+        playerStep(nextSquares, i)
         computerStep(nextSquares)
-        changeField(nextSquares);
-        stepMake = false;
     } 
   }
-
+  
   function computerStep(nextSquares){
-    while (stepMake != true){
-      let step = getRandomInt(0,7);
-      for(let i = 0; i!=nextSquares.length; i++){
-        if(nextSquares[step] != 'X' && nextSquares[step] != 'O'){
-          nextSquares[step] = Player2;
-          stepMake = true;
-        }
-      } 
-    }
-    console.log(nextSquares)
+    let array = []
+    for(let i = 0; i!=nextSquares.length; i++){
+      if (nextSquares[i]==null){
+        array.push(i)
+      }
+    } 
+    let step = getRandomInt(0,array.length-1);
+    nextSquares[array[step]] = Player2;
+    changeField(nextSquares);
+  }
+
+  function playerStep(nextSquares, i) {
+    nextSquares[i] = Player1;
+    changeField(nextSquares);
+    changeRouds(rounds+1)
   }
 
   function resetGame(){
     block = false;
     changeField(Array(9).fill(null))
+    changeRouds(1)
   }
 
   return(
