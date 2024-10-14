@@ -34,6 +34,7 @@ function Field(){
 
   let status = checkWinning(arrayField.slice(), Player1, Player2, pos1)
   let progres; 
+  
   if(status == Player1 || status == Player2){
     progres = 'WINNER IS ' + status;
     block = true;
